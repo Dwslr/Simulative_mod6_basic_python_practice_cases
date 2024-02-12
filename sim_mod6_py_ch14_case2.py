@@ -105,4 +105,44 @@ def calculate_average_budget(csv_file_path: str, platform: str):
         return res
 
 
-calculate_average_budget("Simulative_mod6_basic_python_practice_cases/campaign_data.csv", "Telegram")
+calculate_average_budget(
+    "Simulative_mod6_basic_python_practice_cases/campaign_data.csv", "Telegram"
+)
+
+
+# task7
+from datetime import datetime, timedelta
+
+
+def get_missing_campaign_dates(csv_path: str):
+
+    with open(csv_path, "r") as op_csv:
+        data = list(csv.reader(op_csv))
+        # [print(row) for row in data[:10]]
+
+        req_data = [row[1] for row in data[1:]]
+        # print(req_data)
+
+        dates_camp = []
+        [
+            dates_camp.append(datetime.strptime(date, "%Y-%m-%d"))
+            for date in req_data
+            if date not in dates_camp
+        ]
+        # print(dates_camp)
+
+        start_date = dates_camp[0]
+        end_date = dates_camp[-1]
+        all_dates = [
+            start_date + timedelta(days=i)
+            for i in range((end_date - start_date).days + 1)
+        ]
+        # print(all_dates)
+
+        yield from (date for date in all_dates if date not in dates_camp)
+
+
+generator = get_missing_campaign_dates("Simulative_mod6_basic_python_practice_cases/campaign_data.csv")
+print(next(generator))
+print(next(generator))
+print(next(generator))
