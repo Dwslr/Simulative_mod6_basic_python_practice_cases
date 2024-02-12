@@ -142,7 +142,43 @@ def get_missing_campaign_dates(csv_path: str):
         yield from (date for date in all_dates if date not in dates_camp)
 
 
-generator = get_missing_campaign_dates("Simulative_mod6_basic_python_practice_cases/campaign_data.csv")
+generator = get_missing_campaign_dates(
+    "Simulative_mod6_basic_python_practice_cases/campaign_data.csv"
+)
 print(next(generator))
 print(next(generator))
 print(next(generator))
+
+
+# task8
+def group_campaign_data(csv_path: str):
+    with open(csv_path, "r") as op_csv:
+        data = list(csv.reader(op_csv))
+        # [print(row) for row in data[0:5]]
+
+        req_data = [(row[5], row[6], row[8]) for row in data[1:]]
+        # print(req_data)
+
+        opt_data = [(city, float(click), int(cost)) for cost, city, click in req_data]
+        # print(opt_data)
+
+        cities = set()
+        res = [
+            {"Город": city, "Количество кликов": 0, "Суммарный бюджет": 0}
+            for city, _, _ in opt_data
+            if city not in cities and (cities.add(city) or True)
+        ]
+        for city, click, cost in opt_data:
+            for item in res:
+                if item["Город"] == city:
+                    item["Количество кликов"] += click
+                    item["Суммарный бюджет"] += cost
+        # print(res)
+
+        sorted_res = sorted(res, key=lambda x: x["Город"])
+        # print(sorted_res)
+
+        return sorted_res
+
+
+group_campaign_data("Simulative_mod6_basic_python_practice_cases/campaign_data.csv")
