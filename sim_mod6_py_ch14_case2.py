@@ -163,19 +163,22 @@ def group_campaign_data(csv_path: str):
         # print(opt_data)
 
         city_data = {}
-
         for city, click, cost in opt_data:
             if city not in city_data:
-              city_data[city] = {'Город': city, 'Количество кликов': click, 'Суммарный бюджет': cost}
+                city_data[city] = {
+                    "Город": city,
+                    "Количество кликов": click,
+                    "Суммарный бюджет": cost,
+                }
             else:
-              city_data[city]['Количество кликов'] += click
-              city_data[city]['Суммарный бюджет'] += cost
-                
+                city_data[city]["Количество кликов"] += click
+                city_data[city]["Суммарный бюджет"] += cost
+
         res = list(city_data.values())
         # print(res)
 
         sorted_res = sorted(res, key=lambda x: x["Город"])
-        print(sorted_res)
+        # print(sorted_res)
 
         return sorted_res
 
