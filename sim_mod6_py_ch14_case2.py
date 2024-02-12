@@ -184,3 +184,33 @@ def group_campaign_data(csv_path: str):
 
 
 group_campaign_data("Simulative_mod6_basic_python_practice_cases/campaign_data.csv")
+
+
+# task9
+def campaign_generator(csv_path: str, seek_city: str, seek_cost: int):
+    with open(csv_path, "r", newline="") as op_csv:
+        data = list(csv.reader(op_csv, delimiter=",", quotechar='"'))
+        # [print(row) for row in data[0:5]]
+
+        req_data = [
+            (row[0], row[3], row[4], row[5], row[6], row[-1])
+            for row in data[1:]
+            if row[6] == seek_city and int(row[5]) > seek_cost
+        ]
+        # [print(row) for row in req_data]
+
+        res_gen = (
+            {"ID Кампании": camp_id, "Тип": ttype, "Платформа": platf, "Доход": rev}
+            for camp_id, ttype, platf, _, _, rev in req_data
+        )
+
+        yield from res_gen
+
+
+generator = campaign_generator(
+    "Simulative_mod6_basic_python_practice_cases/campaign_data.csv", "Москва", 25000
+)
+print(next(generator))
+print(next(generator))
+print(next(generator))
+
