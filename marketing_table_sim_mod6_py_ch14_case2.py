@@ -1,6 +1,6 @@
 # -*- coding: 1251 -*-
 
-# Сделал интересующие импорты и функцию чтения csv файла с исходными данными
+# Г‘Г¤ГҐГ«Г Г« ГЁГ­ГІГҐГ°ГҐГ±ГіГѕГ№ГЁГҐ ГЁГ¬ГЇГ®Г°ГІГ» ГЁ ГґГіГ­ГЄГ¶ГЁГѕ Г·ГІГҐГ­ГЁГї csv ГґГ Г©Г«Г  Г± ГЁГ±ГµГ®Г¤Г­Г»Г¬ГЁ Г¤Г Г­Г­Г»Г¬ГЁ
 
 import csv
 from statistics import mean
@@ -69,12 +69,12 @@ def calc_mark_cost(data: list):
     ) as wf:
         for platf, city in platf_data.items():
             sorted_cities = sorted(city.items(), key=lambda x: x[1], reverse=True)
-            print(f"Для группы {platf}:", file=wf)
+            print(f"Г„Г«Гї ГЈГ°ГіГЇГЇГ» {platf}:", file=wf)
 
             for name_city, cost in sorted_cities:
                 cost_share = round(cost / sum(city.values()) * 100, 2)
                 print(
-                    f"- Город: {name_city}, доля затрат на рекламу: {cost_share}%",
+                    f"- ГѓГ®Г°Г®Г¤: {name_city}, Г¤Г®Г«Гї Г§Г ГІГ°Г ГІ Г­Г  Г°ГҐГЄГ«Г Г¬Гі: {cost_share}%",
                     file=wf,
                 )
 
@@ -169,18 +169,18 @@ def group_campaign_data(csv_path: str):
         for city, click, cost in opt_data:
             if city not in city_data:
                 city_data[city] = {
-                    "Город": city,
-                    "Количество кликов": click,
-                    "Суммарный бюджет": cost,
+                    "ГѓГ®Г°Г®Г¤": city,
+                    "ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЄГ«ГЁГЄГ®Гў": click,
+                    "Г‘ГіГ¬Г¬Г Г°Г­Г»Г© ГЎГѕГ¤Г¦ГҐГІ": cost,
                 }
             else:
-                city_data[city]["Количество кликов"] += click
-                city_data[city]["Суммарный бюджет"] += cost
+                city_data[city]["ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЄГ«ГЁГЄГ®Гў"] += click
+                city_data[city]["Г‘ГіГ¬Г¬Г Г°Г­Г»Г© ГЎГѕГ¤Г¦ГҐГІ"] += cost
 
         res = list(city_data.values())
         # print(res)
 
-        sorted_res = sorted(res, key=lambda x: x["Город"])
+        sorted_res = sorted(res, key=lambda x: x["ГѓГ®Г°Г®Г¤"])
         # print(sorted_res)
 
         return sorted_res
@@ -204,10 +204,10 @@ def campaign_generator(csv_path: str, seek_city: str, seek_cost: int):
 
         res_gen = (
             {
-                "ID Кампании": camp_id,
-                "Тип": ttype,
-                "Платформа": platf,
-                "Доход": rev,
+                "ID ГЉГ Г¬ГЇГ Г­ГЁГЁ": camp_id,
+                "Г’ГЁГЇ": ttype,
+                "ГЏГ«Г ГІГґГ®Г°Г¬Г ": platf,
+                "Г„Г®ГµГ®Г¤": rev,
             }
             for camp_id, ttype, platf, _, _, rev in req_data
         )
@@ -217,7 +217,7 @@ def campaign_generator(csv_path: str, seek_city: str, seek_cost: int):
 
 generator = campaign_generator(
     "Simulative_mod6_basic_python_practice_cases/campaign_data.csv",
-    "Москва",
+    "ГЊГ®Г±ГЄГўГ ",
     25000,
 )
 print(next(generator))
